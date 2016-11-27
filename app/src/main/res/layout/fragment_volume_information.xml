@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:textColor="@color/white"
+    android:background="@color/darkBackground"
+    tools:context="com.mohawk.osama.capstone.VolumeActivity$VolumeInformationFragment">
+
+    <ImageView
+        android:layout_width="125dp"
+        android:layout_height="175dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/volumeInfoComicCover" />
+
+    <RelativeLayout
+        android:id="@+id/issueInfoDetails1"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_toRightOf="@+id/volumeInfoComicCover"
+        android:layout_toEndOf="@+id/volumeInfoComicCover">
+
+        <TextView
+            android:id="@+id/volumeInfoYear"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/volumeInfoPublisher"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_below="@+id/volumeInfoYear" />
+
+        <TextView
+            android:id="@+id/volumeInfoIssueCount"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_below="@+id/volumeInfoPublisher" />
+
+       <ImageButton
+            android:id="@+id/volumeInfoAddButton"
+            android:background="@drawable/ic_add_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_below="@+id/volumeInfoIssueCount" />
+
+        <TextView
+            android:id="@+id/volumeInfoAddLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Add to Collection"
+            android:paddingTop="8dp"
+            android:paddingLeft="15dp"
+            android:layout_below="@+id/volumeInfoIssueCount"
+            android:layout_toRightOf="@+id/volumeInfoAddButton" />
+
+        <ImageButton
+            android:id="@+id/volumeInfoRemoveButton"
+            android:background="@drawable/ic_remove_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_below="@+id/volumeInfoIssueCount"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/volumeInfoRemoveLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Remove from Collection"
+            android:paddingTop="8dp"
+            android:paddingLeft="35dp"
+            android:layout_below="@+id/volumeInfoIssueCount"
+            android:layout_toRightOf="@+id/volumeInfoAddButton"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/volumeInfoDetails2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/volumeInfoComicCover">
+
+        <TextView
+            android:id="@+id/volumeInfoDescriptionLabel"
+            android:text="@string/description"
+            android:textSize="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/volumeInfoDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_below="@+id/volumeInfoDescriptionLabel"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

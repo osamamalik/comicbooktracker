@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        card_view:cardBackgroundColor="@color/lightBackground"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:id="@+id/recentComicCover" />
+
+            <RelativeLayout
+                android:id="@+id/recentComicInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/recentComicCover"
+                android:layout_toEndOf="@+id/recentComicCover">
+
+                <TextView
+                    android:id="@+id/recentIssueNumberTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_alignParentTop="true"/>
+
+                <TextView
+                    android:id="@+id/recentIssueNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/recentIssueNumberTextView"/>
+
+                <TextView
+                    android:id="@+id/recentIssueDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/recentIssueNameTextView"/>
+
+                <TextView
+                    android:id="@+id/recentIssueID"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/recentIssueDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/recentIssueImageURL"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

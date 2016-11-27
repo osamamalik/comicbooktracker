@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_view_comic"
+        android:orderInCategory="100"
+        android:title="View comic book" />
+
+    <item
+        android:id="@+id/main_mark_all_read"
+        android:orderInCategory="101"
+        android:title="Mark all issues read" />
+
+    <item
+        android:id="@+id/main_remove_from_collection"
+        android:orderInCategory="101"
+        android:title="Remove from collection" />
+</menu>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/darkBackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.mohawk.osama.capstone.AddActivity"
+    tools:showIn="@layout/activity_add">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/add_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_title_label"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="#FFFFFF"/>
+
+        <EditText
+            android:id="@+id/add_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_year_label"
+            android:layout_below="@+id/add_title"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="#FFFFFF"/>
+
+        <EditText
+            android:id="@+id/add_publisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_publisher_label"
+            android:layout_below="@+id/add_year"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="#FFFFFF"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_search"
+            android:id="@+id/add_search_button"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorAccent"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
