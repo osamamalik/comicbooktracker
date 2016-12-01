@@ -22,7 +22,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        this.setTitle(getString(R.string.add));
+        this.setTitle("Search");
 
         final Button button = (Button) findViewById(R.id.add_search_button);
         button.setOnClickListener(new View.OnClickListener() {
