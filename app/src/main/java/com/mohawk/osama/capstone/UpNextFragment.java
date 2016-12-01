@@ -80,7 +80,6 @@ public class UpNextFragment extends Fragment {
         MyApplication myApp = MyApplication.getInstance();
         userID = myApp.getUserID();
 
-        trustAllCertificates();
         new SendPostRequest().execute();
 
         return rootView;
@@ -222,7 +221,8 @@ public class UpNextFragment extends Fragment {
                     jsonObject.optString("ReleaseDate"),
                     jsonObject.optString("IssueDescription"),
                     jsonObject.optString("IssueID"),
-                    jsonObject.optInt("InCollection"));
+                    jsonObject.optInt("InCollection"),
+                    jsonObject.optInt("IssueRating"));
         } catch (JSONException e) {
             //Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -250,38 +250,6 @@ public class UpNextFragment extends Fragment {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
-        }
-    }
-
-    public static void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
         }
     }
 }

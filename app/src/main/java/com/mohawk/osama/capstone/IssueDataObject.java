@@ -11,11 +11,12 @@ public class IssueDataObject {
     private String issueDescription;
     private String issueID;
     private int inCollection;
+    private int issueRating;
 
     IssueDataObject() {
     }
 
-    IssueDataObject(String iURL, String iNumber, String iName, String iDate, String iDescription, String iID, int inC){
+    IssueDataObject(String iURL, String iNumber, String iName, String iDate, String iDescription, String iID, int inC, int iRating){
         imageURL = iURL;
         issueNumber = iNumber;
         issueName = iName;
@@ -23,6 +24,7 @@ public class IssueDataObject {
         issueDescription = iDescription;
         issueID = iID;
         inCollection = inC;
+        issueRating = iRating;
     }
 
     public String getImageURL() {
@@ -79,5 +81,13 @@ public class IssueDataObject {
 
     public void setInCollection(int inCollection) {
         this.inCollection = inCollection;
+    }
+
+    public int getIssueRating() {
+        return issueRating;
+    }
+
+    public void setIssueRating(int isRead) {
+        this.issueRating = issueRating;
     }
 }

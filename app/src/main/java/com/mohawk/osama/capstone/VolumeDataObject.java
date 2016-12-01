@@ -10,17 +10,19 @@ public class VolumeDataObject {
     private String comicCount;
     private String comicDescription;
     private int inCollection;
+    private int comicRating;
 
     VolumeDataObject() {
     }
 
-    VolumeDataObject(String cURL, String cYear, String cPublisher, String cCount, String cDescription, int inC){
+    VolumeDataObject(String cURL, String cYear, String cPublisher, String cCount, String cDescription, int inC, int cRating){
         imageURL = cURL;
         comicYear = cYear;
         comicPublisher = cPublisher;
         comicCount = cCount;
         comicDescription = cDescription;
         inCollection = inC;
+        comicRating = cRating;
     }
 
     public String getImageURL() {
@@ -69,5 +71,13 @@ public class VolumeDataObject {
 
     public void setInCollection(int inCollection) {
         this.inCollection = inCollection;
+    }
+
+    public int getComicRating() {
+        return comicRating;
+    }
+
+    public void setComicRating(int inCollection) {
+        this.comicRating = comicRating;
     }
 }

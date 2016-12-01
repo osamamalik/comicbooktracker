@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/issueInfoIssueNumber"
-            android:textSize="40px"
+            android:textSize="26dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -47,17 +47,90 @@
             android:layout_below="@+id/issueInfoIssueName" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/issueInfoRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/issueInfoComicCover">
+
+        <ImageButton
+            android:id="@+id/issueInfoStarEmpty1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/issueInfoStar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/issueInfoStarEmpty2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/issueInfoStar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/issueInfoStarEmpty3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/issueInfoStar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/issueInfoStarEmpty4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/issueInfoStar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/issueInfoStarEmpty5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/issueInfoStar5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/issueInfoDetails2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/issueInfoComicCover">
+        android:layout_below="@+id/issueInfoRating">
 
         <TextView
             android:id="@+id/issueInfoDescriptionLabel"
             android:text="@string/description"
-            android:textSize="40px"
+            android:textSize="26dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white" />

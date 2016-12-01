@@ -88,12 +88,85 @@
             android:visibility="visible" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/volumeInfoRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/volumeInfoComicCover">
+
+        <ImageButton
+            android:id="@+id/volumeInfoStarEmpty1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/volumeInfoStar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/volumeInfoStarEmpty2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/volumeInfoStar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/volumeInfoStarEmpty3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/volumeInfoStar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/volumeInfoStarEmpty4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/volumeInfoStar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/volumeInfoStarEmpty5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star_empty"/>
+
+        <ImageButton
+            android:id="@+id/volumeInfoStar5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/volumeInfoDetails2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/volumeInfoComicCover">
+        android:layout_below="@+id/volumeInfoRating">
 
         <TextView
             android:id="@+id/volumeInfoDescriptionLabel"
