@@ -52,6 +52,17 @@ public class VolumeInformationFragment extends Fragment {
     private String userID;
     private boolean addToCollection = false;
     private int isRemove = 0;
+    private ImageButton star1;
+    private ImageButton starEmpty1;
+    private ImageButton star2;
+    private ImageButton starEmpty2;
+    private ImageButton star3;
+    private ImageButton starEmpty3;
+    private ImageButton star4;
+    private ImageButton starEmpty4;
+    private ImageButton star5;
+    private ImageButton starEmpty5;
+    private int userRating;
 
     public VolumeInformationFragment() {
     }
@@ -80,11 +91,101 @@ public class VolumeInformationFragment extends Fragment {
         removeButton = (ImageButton) rootView.findViewById(R.id.volumeInfoRemoveButton);
         removeLabel = (TextView) rootView.findViewById(R.id.volumeInfoRemoveLabel);
 
+        star1 = (ImageButton) rootView.findViewById(R.id.volumeInfoStar1);
+        star2 = (ImageButton) rootView.findViewById(R.id.volumeInfoStar2);
+        star3 = (ImageButton) rootView.findViewById(R.id.volumeInfoStar3);
+        star4 = (ImageButton) rootView.findViewById(R.id.volumeInfoStar4);
+        star5 = (ImageButton) rootView.findViewById(R.id.volumeInfoStar5);
+        starEmpty1 = (ImageButton) rootView.findViewById(R.id.volumeInfoStarEmpty1);
+        starEmpty2 = (ImageButton) rootView.findViewById(R.id.volumeInfoStarEmpty2);
+        starEmpty3 = (ImageButton) rootView.findViewById(R.id.volumeInfoStarEmpty3);
+        starEmpty4 = (ImageButton) rootView.findViewById(R.id.volumeInfoStarEmpty4);
+        starEmpty5 = (ImageButton) rootView.findViewById(R.id.volumeInfoStarEmpty5);
+
         MyApplication myApp = MyApplication.getInstance();
         userID = myApp.getUserID();
 
-        trustAllCertificates();
         new SendPostRequest().execute();
+
+        star1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 1;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        starEmpty1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 1;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        star2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 2;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        starEmpty2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 2;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        star3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 3;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        starEmpty3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 3;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        star4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 4;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        starEmpty4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 4;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        star5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 5;
+                new SetRatingRequest().execute();
+            }
+        });
+
+        starEmpty5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRating = 5;
+                new SetRatingRequest().execute();
+            }
+        });
 
         return rootView;
     }
@@ -101,10 +202,10 @@ public class VolumeInformationFragment extends Fragment {
                 JSONObject postDataParams = new JSONObject();
                 if (addToCollection) {
                     url = new URL("https://csunix.mohawkcollege.ca/~000307480/capstone/addToCollection.php");
-                    postDataParams.put("userID", userID);
                     postDataParams.put("isRemove", isRemove);
                 }
                 postDataParams.put("comicID", comicID);
+                postDataParams.put("userID", userID);
                 Log.e("params", postDataParams.toString());
 
                 HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -176,6 +277,81 @@ public class VolumeInformationFragment extends Fragment {
                     removeLabel.setVisibility(View.GONE);
                 }
 
+                switch (volume.getComicRating()) {
+                    case 1:
+                        star1.setVisibility(View.VISIBLE);
+                        star2.setVisibility(View.GONE);
+                        star3.setVisibility(View.GONE);
+                        star4.setVisibility(View.GONE);
+                        star5.setVisibility(View.GONE);
+                        starEmpty1.setVisibility(View.GONE);
+                        starEmpty2.setVisibility(View.VISIBLE);
+                        starEmpty3.setVisibility(View.VISIBLE);
+                        starEmpty4.setVisibility(View.VISIBLE);
+                        starEmpty5.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        star1.setVisibility(View.VISIBLE);
+                        star2.setVisibility(View.VISIBLE);
+                        star3.setVisibility(View.GONE);
+                        star4.setVisibility(View.GONE);
+                        star5.setVisibility(View.GONE);
+                        starEmpty1.setVisibility(View.GONE);
+                        starEmpty2.setVisibility(View.GONE);
+                        starEmpty3.setVisibility(View.VISIBLE);
+                        starEmpty4.setVisibility(View.VISIBLE);
+                        starEmpty5.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        star1.setVisibility(View.VISIBLE);
+                        star2.setVisibility(View.VISIBLE);
+                        star3.setVisibility(View.VISIBLE);
+                        star4.setVisibility(View.GONE);
+                        star5.setVisibility(View.GONE);
+                        starEmpty1.setVisibility(View.GONE);
+                        starEmpty2.setVisibility(View.GONE);
+                        starEmpty3.setVisibility(View.GONE);
+                        starEmpty4.setVisibility(View.VISIBLE);
+                        starEmpty5.setVisibility(View.VISIBLE);
+                        break;
+                    case 4:
+                        star1.setVisibility(View.VISIBLE);
+                        star2.setVisibility(View.VISIBLE);
+                        star3.setVisibility(View.VISIBLE);
+                        star4.setVisibility(View.VISIBLE);
+                        star5.setVisibility(View.GONE);
+                        starEmpty1.setVisibility(View.GONE);
+                        starEmpty2.setVisibility(View.GONE);
+                        starEmpty3.setVisibility(View.GONE);
+                        starEmpty4.setVisibility(View.GONE);
+                        starEmpty5.setVisibility(View.VISIBLE);
+                        break;
+                    case 5:
+                        star1.setVisibility(View.VISIBLE);
+                        star2.setVisibility(View.VISIBLE);
+                        star3.setVisibility(View.VISIBLE);
+                        star4.setVisibility(View.VISIBLE);
+                        star5.setVisibility(View.VISIBLE);
+                        starEmpty1.setVisibility(View.GONE);
+                        starEmpty2.setVisibility(View.GONE);
+                        starEmpty3.setVisibility(View.GONE);
+                        starEmpty4.setVisibility(View.GONE);
+                        starEmpty5.setVisibility(View.GONE);
+                        break;
+                    default:
+                        star1.setVisibility(View.GONE);
+                        star2.setVisibility(View.GONE);
+                        star3.setVisibility(View.GONE);
+                        star4.setVisibility(View.GONE);
+                        star5.setVisibility(View.GONE);
+                        starEmpty1.setVisibility(View.VISIBLE);
+                        starEmpty2.setVisibility(View.VISIBLE);
+                        starEmpty3.setVisibility(View.VISIBLE);
+                        starEmpty4.setVisibility(View.VISIBLE);
+                        starEmpty5.setVisibility(View.VISIBLE);
+                        break;
+                }
+
                 addButton.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -203,6 +379,147 @@ public class VolumeInformationFragment extends Fragment {
                         removeLabel.setVisibility(View.GONE);
                     }
                 });
+            }
+        }
+    }
+
+    public class SetRatingRequest extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute(){}
+
+        @Override
+        protected String doInBackground(String... arg0) {
+            try {
+
+                URL url = new URL("https://csunix.mohawkcollege.ca/~000307480/capstone/setComicRating.php");
+
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("comicID", comicID);
+                postDataParams.put("userID", userID);
+                postDataParams.put("userRating", userRating);
+                Log.e("params", postDataParams.toString());
+
+                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode=conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader in=new BufferedReader(new
+                            InputStreamReader(
+                            conn.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line="";
+
+                    while((line = in.readLine()) != null) {
+
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+                    return sb.toString();
+
+                }
+                else {
+                    return new String("false : "+responseCode);
+                }
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            switch (userRating) {
+                case 1:
+                    star1.setVisibility(View.VISIBLE);
+                    star2.setVisibility(View.GONE);
+                    star3.setVisibility(View.GONE);
+                    star4.setVisibility(View.GONE);
+                    star5.setVisibility(View.GONE);
+                    starEmpty1.setVisibility(View.GONE);
+                    starEmpty2.setVisibility(View.VISIBLE);
+                    starEmpty3.setVisibility(View.VISIBLE);
+                    starEmpty4.setVisibility(View.VISIBLE);
+                    starEmpty5.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                    star1.setVisibility(View.VISIBLE);
+                    star2.setVisibility(View.VISIBLE);
+                    star3.setVisibility(View.GONE);
+                    star4.setVisibility(View.GONE);
+                    star5.setVisibility(View.GONE);
+                    starEmpty1.setVisibility(View.GONE);
+                    starEmpty2.setVisibility(View.GONE);
+                    starEmpty3.setVisibility(View.VISIBLE);
+                    starEmpty4.setVisibility(View.VISIBLE);
+                    starEmpty5.setVisibility(View.VISIBLE);
+                    break;
+                case 3:
+                    star1.setVisibility(View.VISIBLE);
+                    star2.setVisibility(View.VISIBLE);
+                    star3.setVisibility(View.VISIBLE);
+                    star4.setVisibility(View.GONE);
+                    star5.setVisibility(View.GONE);
+                    starEmpty1.setVisibility(View.GONE);
+                    starEmpty2.setVisibility(View.GONE);
+                    starEmpty3.setVisibility(View.GONE);
+                    starEmpty4.setVisibility(View.VISIBLE);
+                    starEmpty5.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    star1.setVisibility(View.VISIBLE);
+                    star2.setVisibility(View.VISIBLE);
+                    star3.setVisibility(View.VISIBLE);
+                    star4.setVisibility(View.VISIBLE);
+                    star5.setVisibility(View.GONE);
+                    starEmpty1.setVisibility(View.GONE);
+                    starEmpty2.setVisibility(View.GONE);
+                    starEmpty3.setVisibility(View.GONE);
+                    starEmpty4.setVisibility(View.GONE);
+                    starEmpty5.setVisibility(View.VISIBLE);
+                    break;
+                case 5:
+                    star1.setVisibility(View.VISIBLE);
+                    star2.setVisibility(View.VISIBLE);
+                    star3.setVisibility(View.VISIBLE);
+                    star4.setVisibility(View.VISIBLE);
+                    star5.setVisibility(View.VISIBLE);
+                    starEmpty1.setVisibility(View.GONE);
+                    starEmpty2.setVisibility(View.GONE);
+                    starEmpty3.setVisibility(View.GONE);
+                    starEmpty4.setVisibility(View.GONE);
+                    starEmpty5.setVisibility(View.GONE);
+                    break;
+                default:
+                    star1.setVisibility(View.GONE);
+                    star2.setVisibility(View.GONE);
+                    star3.setVisibility(View.GONE);
+                    star4.setVisibility(View.GONE);
+                    star5.setVisibility(View.GONE);
+                    starEmpty1.setVisibility(View.VISIBLE);
+                    starEmpty2.setVisibility(View.VISIBLE);
+                    starEmpty3.setVisibility(View.VISIBLE);
+                    starEmpty4.setVisibility(View.VISIBLE);
+                    starEmpty5.setVisibility(View.VISIBLE);
+                    break;
             }
         }
     }
@@ -242,7 +559,8 @@ public class VolumeInformationFragment extends Fragment {
                     jsonObject.optString("Publisher"),
                     jsonObject.optString("IssueCount"),
                     jsonObject.optString("ComicBookDescription"),
-                    jsonObject.optInt("InCollection"));
+                    jsonObject.optInt("InCollection"),
+                    jsonObject.optInt("ComicBookRating"));
         } catch (JSONException e) {
             //Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -270,38 +588,6 @@ public class VolumeInformationFragment extends Fragment {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
-        }
-    }
-
-    public static void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
         }
     }
 }
