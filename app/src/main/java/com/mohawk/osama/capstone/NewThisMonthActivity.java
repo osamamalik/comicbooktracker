@@ -137,11 +137,9 @@ public class NewThisMonthActivity extends AppCompatActivity implements Navigatio
             startActivity(intent);
         } else if (id == R.id.nav_new_this_month) {
             // do nothing
-        } else if (id == R.id.nav_recent) {
-            Intent intent = new Intent(this, RecentActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_recommendations) {
-
+            Intent intent = new Intent(this, RecommendedActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

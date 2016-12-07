@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,37 +28,31 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
-public class RecentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class RecommendedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static String LOG_TAG = "RecentActivity";
-    private String jsonResult;
+    public ArrayList databaseResults = new ArrayList<SearchDataObject>();
+    private String userID;
 
-    public ArrayList databaseResults = new ArrayList<IssuesDataObject>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recent);
+        setContentView(R.layout.activity_recommended);
 
-        trustAllCertificates();
+        MyApplication myApp = MyApplication.getInstance();
+        userID = myApp.getUserID();
+
         new SendPostRequest().execute();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Recent");
+        getSupportActionBar().setTitle("Recommended");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,25 +63,22 @@ public class RecentActivity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recent_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recommended_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecentRecyclerViewAdapter(getDataSet());
+        mAdapter = new SearchRecyclerViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
-
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        ((RecentRecyclerViewAdapter) mAdapter).setOnItemClickListener(new RecentRecyclerViewAdapter
+        ((SearchRecyclerViewAdapter) mAdapter).setOnItemClickListener(new SearchRecyclerViewAdapter
                 .MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Log.i(LOG_TAG, " Clicked on Item " + position);
+                //Log.i(LOG_TAG, " Clicked on Item " + position);
             }
         });
     }
@@ -99,6 +91,28 @@ public class RecentActivity extends AppCompatActivity implements NavigationView.
         } else {
             super.onBackPressed();
         }
+    }
+
+    private ArrayList<SearchDataObject> getDataSet() {
+        ArrayList results = new ArrayList<SearchDataObject>();
+        if (databaseResults.size() == 0) {
+            for (int index = 0; index < 1; index++) {
+                SearchDataObject obj = new SearchDataObject("Comic Name " + index,
+                        "Year " + index, "Publisher " + index, "Issue Cover " + index,
+                        "ComicID " + index);
+                results.add(index, obj);
+            }
+        }
+        else {
+            results.clear();
+            for (int i = 0; i < databaseResults.size(); i++) {
+                SearchDataObject r = (SearchDataObject) databaseResults.get(i);
+                SearchDataObject obj = new SearchDataObject(r.getComicName(),
+                        r.getStartYear(), r.getPublisher(), r.getImageURL(), r.getComicID());
+                results.add(i, obj);
+            }
+        }
+        return results;
     }
 
     @Override
@@ -135,35 +149,13 @@ public class RecentActivity extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.nav_new_this_month) {
             Intent intent = new Intent(this, NewThisMonthActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_recent) {
-            // do nothing
         } else if (id == R.id.nav_recommendations) {
-
+            // do nothing
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private ArrayList<IssuesDataObject> getDataSet() {
-        ArrayList results = new ArrayList<IssuesDataObject>();
-        if (databaseResults.size() == 0) {
-            for (int index = 0; index < 1; index++) {
-                IssuesDataObject obj = new IssuesDataObject("Loading Issues...", "", "", "", "", "", "","", 0);
-                results.add(index, obj);
-            }
-        }
-        else {
-            results.clear();
-            for (int i = 0; i < databaseResults.size(); i++) {
-                IssuesDataObject r = (IssuesDataObject) databaseResults.get(i);
-                IssuesDataObject obj = new IssuesDataObject(r.getImageURL(),
-                        r.getIssueNumber(), r.getIssueName(), r.getIssueDate(), r.getIssueDescription(), r.getIssueID(), r.getComicName(), r.getComicID(), r.getIsRead());
-                results.add(i, obj);
-            }
-        }
-        return results;
     }
 
     public class SendPostRequest extends AsyncTask<String, Void, String> {
@@ -174,9 +166,10 @@ public class RecentActivity extends AppCompatActivity implements NavigationView.
         protected String doInBackground(String... arg0) {
             try {
 
-                URL url = new URL("https://csunix.mohawkcollege.ca/~000307480/capstone/getNewThisMonth.php");
+                URL url = new URL("https://csunix.mohawkcollege.ca/~000307480/capstone/getRecommendations.php");
 
                 JSONObject postDataParams = new JSONObject();
+                postDataParams.put("userID", userID);
                 Log.e("params", postDataParams.toString());
 
                 HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -228,7 +221,7 @@ public class RecentActivity extends AppCompatActivity implements NavigationView.
         @Override
         protected void onPostExecute(String result) {
             getData(result);
-            mAdapter = new RecentRecyclerViewAdapter(getDataSet());
+            mAdapter = new SearchRecyclerViewAdapter(getDataSet());
             mRecyclerView.setAdapter(mAdapter);
         }
     }
@@ -258,59 +251,25 @@ public class RecentActivity extends AppCompatActivity implements NavigationView.
         return result.toString();
     }
 
-    public ArrayList<IssuesDataObject> getData(String jsonResult) {
+    public ArrayList<SearchDataObject> getData(String jsonResult) {
+        //ArrayList databaseResults = new ArrayList<SearchDataObject>();
+
         try {
             JSONArray jsonMainNode = new JSONArray(jsonResult);
 
             for (int i = 0; i < jsonMainNode.length(); i++) {
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                IssuesDataObject obj = new IssuesDataObject(jsonChildNode.optString("IssueCover"),
-                        jsonChildNode.optString("IssueNumber"),
-                        jsonChildNode.optString("IssueName"),
-                        jsonChildNode.optString("ReleaseDate"),
-                        jsonChildNode.optString("IssueDescription"),
-                        jsonChildNode.optString("IssueID"),
-                        jsonChildNode.optString("ComicBookName"),
-                        jsonChildNode.optString("ComicBookID"),
-                        jsonChildNode.optInt("IsRead"));
+                SearchDataObject obj = new SearchDataObject(jsonChildNode.optString("ComicBookName"),
+                        jsonChildNode.optString("StartYear"),
+                        jsonChildNode.optString("Publisher"),
+                        jsonChildNode.optString("IssueCover"),
+                        jsonChildNode.optString("ComicBookID"));
                 databaseResults.add(i, obj);
             }
         } catch (JSONException e) {
-            //Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
 
         return databaseResults;
-    }
-
-    public void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-        }
     }
 }

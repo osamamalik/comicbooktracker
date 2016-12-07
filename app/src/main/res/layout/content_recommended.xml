@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/darkBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.mohawk.osama.capstone.RecentActivity"
-    tools:showIn="@layout/app_bar_recent">
+    tools:context="com.mohawk.osama.capstone.RecommendedActivity"
+    tools:showIn="@layout/app_bar_recommended">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recent_recycler_view"
+        android:id="@+id/recommended_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>

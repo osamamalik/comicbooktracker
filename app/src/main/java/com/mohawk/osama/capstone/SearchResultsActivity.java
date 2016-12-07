@@ -38,7 +38,6 @@ public class SearchResultsActivity extends AppCompatActivity {
     public ArrayList databaseResults = new ArrayList<SearchDataObject>();
     private String title;
     private String year;
-    private String publisher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +47,7 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         title = getIntent().getExtras().getString("title");
         year = getIntent().getExtras().getString("year");
-        publisher = getIntent().getExtras().getString("publisher");
 
-        trustAllCertificates();
         new SendPostRequest().execute();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.search_recycler_view);
@@ -108,7 +105,6 @@ public class SearchResultsActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("title", title);
                 postDataParams.put("year", year);
-                postDataParams.put("publisher", publisher);
                 Log.e("params", postDataParams.toString());
 
                 HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -210,37 +206,5 @@ public class SearchResultsActivity extends AppCompatActivity {
         }
 
         return databaseResults;
-    }
-
-    public void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-        }
     }
 }

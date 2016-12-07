@@ -29,16 +29,13 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText searchTitle = (EditText) findViewById(R.id.add_title);
                 EditText searchYear = (EditText) findViewById(R.id.add_year);
-                EditText searchPublisher = (EditText) findViewById(R.id.add_publisher);
 
                 title = searchTitle.getText().toString();
                 year = searchYear.getText().toString();
-                publisher = searchYear.getText().toString();
 
                 Intent intent = new Intent(v.getContext(), SearchResultsActivity.class);
                 intent.putExtra("title", title);
                 intent.putExtra("year", year);
-                intent.putExtra("publisher", publisher);
                 startActivity(intent);
             }
         });

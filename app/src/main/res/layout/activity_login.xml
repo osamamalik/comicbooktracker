@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/darkBackground"
     tools:context="com.mohawk.osama.capstone.LoginActivity">
 
     <!-- Login progress -->
@@ -41,6 +42,7 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:textColor="#FFFFFF"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -59,6 +61,7 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
+                    android:textColor="#FFFFFF"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -69,6 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:textColor="#FFFFFF"
                 android:text="@string/action_sign_in_short"
                 android:textStyle="bold" />
 
@@ -78,6 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:textColor="#FFFFFF"
                 android:text="Register"
                 android:textStyle="bold" />
 

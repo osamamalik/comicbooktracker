@@ -1,6 +1,7 @@
 package com.mohawk.osama.capstone;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Collection");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,11 +155,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_new_this_month) {
             Intent intent = new Intent(this, NewThisMonthActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_recent) {
-            Intent intent = new Intent(this, RecentActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_recommendations) {
-
+            Intent intent = new Intent(this, RecommendedActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
