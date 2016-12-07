@@ -11,11 +11,13 @@ public class VolumeDataObject {
     private String comicDescription;
     private int inCollection;
     private int comicRating;
+    private int comicID;
+    private String comicName;
 
     VolumeDataObject() {
     }
 
-    VolumeDataObject(String cURL, String cYear, String cPublisher, String cCount, String cDescription, int inC, int cRating){
+    VolumeDataObject(String cURL, String cYear, String cPublisher, String cCount, String cDescription, int inC, int cRating, int cID, String cName){
         imageURL = cURL;
         comicYear = cYear;
         comicPublisher = cPublisher;
@@ -23,6 +25,8 @@ public class VolumeDataObject {
         comicDescription = cDescription;
         inCollection = inC;
         comicRating = cRating;
+        comicID = cID;
+        comicName = cName;
     }
 
     public String getImageURL() {
@@ -79,5 +83,21 @@ public class VolumeDataObject {
 
     public void setComicRating(int inCollection) {
         this.comicRating = comicRating;
+    }
+
+    public int getComicID() {
+        return comicID;
+    }
+
+    public void setComicID(int comicID) {
+        this.comicID = comicID;
+    }
+
+    public String getComicName() {
+        return comicName;
+    }
+
+    public void setComicName(String comicName) {
+        this.comicName = comicName;
     }
 }

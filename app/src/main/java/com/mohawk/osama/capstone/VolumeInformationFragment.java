@@ -39,7 +39,8 @@ import javax.net.ssl.X509TrustManager;
  * Created by Osama on 11/15/2016.
  */
 public class VolumeInformationFragment extends Fragment {
-    private static String comicID;
+    private static String cID;
+    private String comicID;
     private ImageView comicCover;
     private TextView comicYear;
     private TextView comicPublisher;
@@ -67,8 +68,8 @@ public class VolumeInformationFragment extends Fragment {
     public VolumeInformationFragment() {
     }
 
-    public static VolumeInformationFragment newInstance(String cID) {
-        comicID = cID;
+    public static VolumeInformationFragment newInstance(String comID) {
+        cID = comID;
         VolumeInformationFragment fragment = new VolumeInformationFragment();
         return fragment;
     }
@@ -79,7 +80,7 @@ public class VolumeInformationFragment extends Fragment {
 
         addToCollection = false;
         View rootView = inflater.inflate(R.layout.fragment_volume_information, container, false);
-
+        comicID = cID;
         comicCover = (ImageView) rootView.findViewById(R.id.volumeInfoComicCover);
         comicYear = (TextView) rootView.findViewById(R.id.volumeInfoYear);
         comicPublisher = (TextView) rootView.findViewById(R.id.volumeInfoPublisher);
@@ -560,7 +561,9 @@ public class VolumeInformationFragment extends Fragment {
                     jsonObject.optString("IssueCount"),
                     jsonObject.optString("ComicBookDescription"),
                     jsonObject.optInt("InCollection"),
-                    jsonObject.optInt("ComicBookRating"));
+                    jsonObject.optInt("ComicBookRating"),
+                    jsonObject.optInt("ComicBookID"),
+                    jsonObject.optString("ComicBookName"));
         } catch (JSONException e) {
             //Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
