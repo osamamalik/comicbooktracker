@@ -1,6 +1,9 @@
 package com.mohawk.osama.capstone;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -40,6 +43,11 @@ public class RecommendedActivity extends AppCompatActivity implements Navigation
     public ArrayList databaseResults = new ArrayList<SearchDataObject>();
     private String userID;
 
+    // The following are used for the shake detection
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +77,29 @@ public class RecommendedActivity extends AppCompatActivity implements Navigation
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new SearchRecyclerViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+				/*
+				 * The following method, "handleShakeEvent(count):" is a stub //
+				 * method you would use to setup whatever you want done once the
+				 * device has been shook.
+				 */
+                handleShakeEvent();
+            }
+        });
+    }
+
+    private void handleShakeEvent() {
+        Intent intent = new Intent(RecommendedActivity.this, ShakeRecommendationActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -81,6 +112,14 @@ public class RecommendedActivity extends AppCompatActivity implements Navigation
                 //Log.i(LOG_TAG, " Clicked on Item " + position);
             }
         });
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
     @Override

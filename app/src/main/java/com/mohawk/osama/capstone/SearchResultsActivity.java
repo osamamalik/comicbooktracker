@@ -31,10 +31,16 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * The type Search results activity.
+ */
 public class SearchResultsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    /**
+     * The Database results.
+     */
     public ArrayList databaseResults = new ArrayList<SearchDataObject>();
     private String title;
     private String year;
@@ -92,6 +98,9 @@ public class SearchResultsActivity extends AppCompatActivity {
         return results;
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -161,6 +170,13 @@ public class SearchResultsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -186,6 +202,12 @@ public class SearchResultsActivity extends AppCompatActivity {
         return result.toString();
     }
 
+    /**
+     * Gets data.
+     *
+     * @param jsonResult the json result
+     * @return the data
+     */
     public ArrayList<SearchDataObject> getData(String jsonResult) {
         //ArrayList databaseResults = new ArrayList<SearchDataObject>();
 

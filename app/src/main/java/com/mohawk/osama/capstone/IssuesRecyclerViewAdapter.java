@@ -43,22 +43,60 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
     private static String LOG_TAG = "IssuesRecyclerViewAdapter";
     private ArrayList<IssuesDataObject> mDataset;
     private static MyClickListener myClickListener;
+    /**
+     * The Read issue id.
+     */
     String readIssueID;
+    /**
+     * The Read comic id.
+     */
     String readComicID;
     private String userID;
 
+    /**
+     * The type Data object holder.
+     */
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
+        /**
+         * The Issue number.
+         */
         TextView issueNumber;
+        /**
+         * The Issue name.
+         */
         TextView issueName;
+        /**
+         * The Issue date.
+         */
         TextView issueDate;
+        /**
+         * The Cover image.
+         */
         ImageView coverImage;
+        /**
+         * The Issue id.
+         */
         TextView issueID;
+        /**
+         * The Read button.
+         */
         ImageButton readButton;
+        /**
+         * The Issue description.
+         */
         TextView issueDescription;
+        /**
+         * The Issue image url.
+         */
         TextView issueImageURL;
 
+        /**
+         * Instantiates a new Data object holder.
+         *
+         * @param itemView the item view
+         */
         public DataObjectHolder(View itemView) {
             super(itemView);
             issueNumber = (TextView) itemView.findViewById(R.id.issuesIssueNumberTextView);
@@ -90,10 +128,21 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * Sets on item click listener.
+     *
+     * @param myClickListener the my click listener
+     */
     public void setOnItemClickListener(MyClickListener myClickListener) {
         this.myClickListener = myClickListener;
     }
 
+    /**
+     * Instantiates a new Issues recycler view adapter.
+     *
+     * @param myDataset the my dataset
+     * @param cID       the c id
+     */
     public IssuesRecyclerViewAdapter(ArrayList<IssuesDataObject> myDataset, String cID) {
         readComicID = cID;
         mDataset = myDataset;
@@ -132,18 +181,28 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
 
                 IssuesDataObject sDO = mDataset.get(position);
                 readIssueID = sDO.getIssueID();
-                trustAllCertificates();
                 new SendPostRequest().execute();
                 holder.readButton.setVisibility(View.GONE);
             }
         });
     }
 
+    /**
+     * Add item.
+     *
+     * @param dataObj the data obj
+     * @param index   the index
+     */
     public void addItem(IssuesDataObject dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }
 
+    /**
+     * Delete item.
+     *
+     * @param index the index
+     */
     public void deleteItem(int index) {
         mDataset.remove(index);
         notifyItemRemoved(index);
@@ -154,12 +213,30 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
         return mDataset.size();
     }
 
+    /**
+     * The interface My click listener.
+     */
     public interface MyClickListener {
+        /**
+         * On item click.
+         *
+         * @param position the position
+         * @param v        the v
+         */
         public void onItemClick(int position, View v);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
@@ -182,6 +259,9 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -250,6 +330,13 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -275,35 +362,4 @@ public class IssuesRecyclerViewAdapter extends RecyclerView
         return result.toString();
     }
 
-    public void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-        }
-    }
 }

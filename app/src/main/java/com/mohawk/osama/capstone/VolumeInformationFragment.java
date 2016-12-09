@@ -65,9 +65,18 @@ public class VolumeInformationFragment extends Fragment {
     private ImageButton starEmpty5;
     private int userRating;
 
+    /**
+     * Instantiates a new Volume information fragment.
+     */
     public VolumeInformationFragment() {
     }
 
+    /**
+     * New instance volume information fragment.
+     *
+     * @param comID the com id
+     * @return the volume information fragment
+     */
     public static VolumeInformationFragment newInstance(String comID) {
         cID = comID;
         VolumeInformationFragment fragment = new VolumeInformationFragment();
@@ -191,6 +200,9 @@ public class VolumeInformationFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -384,6 +396,9 @@ public class VolumeInformationFragment extends Fragment {
         }
     }
 
+    /**
+     * The type Set rating request.
+     */
     public class SetRatingRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -525,6 +540,13 @@ public class VolumeInformationFragment extends Fragment {
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -550,6 +572,12 @@ public class VolumeInformationFragment extends Fragment {
         return result.toString();
     }
 
+    /**
+     * Gets data.
+     *
+     * @param jsonResult the json result
+     * @return the data
+     */
     public VolumeDataObject getData(String jsonResult) {
         VolumeDataObject obj = new VolumeDataObject();
         try {
@@ -571,7 +599,16 @@ public class VolumeInformationFragment extends Fragment {
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }

@@ -36,18 +36,31 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by Osama on 11/15/2016.
+ * This fragment is a tab in the Volume activity, showing a list in the volume
  */
 public class IssuesFragment extends Fragment {
     private static String comicID;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    /**
+     * The Database results.
+     */
     public ArrayList databaseResults = new ArrayList<IssuesDataObject>();
     private String userID;
 
+    /**
+     * Instantiates a new Issues fragment.
+     */
     public IssuesFragment() {
     }
 
+    /**
+     * New instance issues fragment.
+     *
+     * @param cID the c id
+     * @return the issues fragment
+     */
     public static IssuesFragment newInstance(String cID) {
         comicID = cID;
         IssuesFragment fragment = new IssuesFragment();
@@ -106,6 +119,9 @@ public class IssuesFragment extends Fragment {
         return results;
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -175,6 +191,13 @@ public class IssuesFragment extends Fragment {
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -200,6 +223,12 @@ public class IssuesFragment extends Fragment {
         return result.toString();
     }
 
+    /**
+     * Gets data.
+     *
+     * @param jsonResult the json result
+     * @return the data
+     */
     public ArrayList<IssuesDataObject> getData(String jsonResult) {
         try {
             JSONArray jsonMainNode = new JSONArray(jsonResult);

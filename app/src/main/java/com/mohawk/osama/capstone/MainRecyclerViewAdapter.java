@@ -42,29 +42,73 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * The type Main recycler view adapter.
+ */
 public class MainRecyclerViewAdapter extends RecyclerView
         .Adapter<MainRecyclerViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "MainRecyclerViewAdapter";
     private ArrayList<MainDataObject> mDataset;
     private static MyClickListener myClickListener;
+    /**
+     * The Current comic id.
+     */
     String currentComicID;
+    /**
+     * The Current issue id.
+     */
     String currentIssueID;
+    /**
+     * The Database action.
+     */
     int databaseAction = 0;
+    /**
+     * The Current view.
+     */
     View currentView;
     private String userID;
 
+    /**
+     * The type Data object holder.
+     */
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
+        /**
+         * The Comic name.
+         */
         TextView comicName;
+        /**
+         * The Issue name.
+         */
         TextView issueName;
+        /**
+         * The Release date.
+         */
         TextView releaseDate;
+        /**
+         * The Cover image.
+         */
         ImageView coverImage;
+        /**
+         * The Issue id.
+         */
         TextView issueID;
+        /**
+         * The Read button.
+         */
         ImageButton readButton;
+        /**
+         * The M image button.
+         */
         ImageButton mImageButton;
 
+        /**
+         * Instantiates a new Data object holder.
+         *
+         * @param itemView the item view
+         */
         public DataObjectHolder(View itemView) {
             super(itemView);
             comicName = (TextView) itemView.findViewById(R.id.mainComicNameTextView);
@@ -89,10 +133,20 @@ public class MainRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * Sets on item click listener.
+     *
+     * @param myClickListener the my click listener
+     */
     public void setOnItemClickListener(MyClickListener myClickListener) {
         this.myClickListener = myClickListener;
     }
 
+    /**
+     * Instantiates a new Main recycler view adapter.
+     *
+     * @param myDataset the my dataset
+     */
     public MainRecyclerViewAdapter(ArrayList<MainDataObject> myDataset) {
         mDataset = myDataset;
 
@@ -146,11 +200,22 @@ public class MainRecyclerViewAdapter extends RecyclerView
         popup.show();
     }
 
+    /**
+     * Add item.
+     *
+     * @param dataObj the data obj
+     * @param index   the index
+     */
     public void addItem(MainDataObject dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }
 
+    /**
+     * Delete item.
+     *
+     * @param index the index
+     */
     public void deleteItem(int index) {
         mDataset.remove(index);
         notifyItemRemoved(index);
@@ -161,12 +226,30 @@ public class MainRecyclerViewAdapter extends RecyclerView
         return mDataset.size();
     }
 
+    /**
+     * The interface My click listener.
+     */
     public interface MyClickListener {
+        /**
+         * On item click.
+         *
+         * @param position the position
+         * @param v        the v
+         */
         public void onItemClick(int position, View v);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
@@ -189,6 +272,9 @@ public class MainRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -196,7 +282,6 @@ public class MainRecyclerViewAdapter extends RecyclerView
         @Override
         protected String doInBackground(String... arg0) {
             try {
-                trustAllCertificates();
                 URL url = new URL("https://csunix.mohawkcollege.ca/~000307480/capstone/setIssueRead.php");
 
                 JSONObject postDataParams = new JSONObject();
@@ -259,6 +344,13 @@ public class MainRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -284,42 +376,19 @@ public class MainRecyclerViewAdapter extends RecyclerView
         return result.toString();
     }
 
-    public void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-        }
-    }
-
     private class MainMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private int position;
+        /**
+         * The V.
+         */
         View v;
 
+        /**
+         * Instantiates a new Main menu item click listener.
+         *
+         * @param position the position
+         * @param v        the v
+         */
         public MainMenuItemClickListener(int position, View v) {
             this.position = position;
             this.v = v;
@@ -349,6 +418,9 @@ public class MainRecyclerViewAdapter extends RecyclerView
             return false;
         }
 
+        /**
+         * The type Send post request.
+         */
         public class SendPostRequest extends AsyncTask<String, Void, String> {
 
             protected void onPreExecute(){}
@@ -356,7 +428,6 @@ public class MainRecyclerViewAdapter extends RecyclerView
             @Override
             protected String doInBackground(String... arg0) {
                 try {
-                    trustAllCertificates();
                     URL url = new URL("https://csunix.mohawkcollege.ca/~000307480/checkIfInCollection.php");
 
                     JSONObject postDataParams = new JSONObject();
@@ -429,6 +500,13 @@ public class MainRecyclerViewAdapter extends RecyclerView
             }
         }
 
+        /**
+         * Gets post data string.
+         *
+         * @param params the params
+         * @return the post data string
+         * @throws Exception the exception
+         */
         public String getPostDataString(JSONObject params) throws Exception {
 
             StringBuilder result = new StringBuilder();
@@ -454,36 +532,5 @@ public class MainRecyclerViewAdapter extends RecyclerView
             return result.toString();
         }
 
-        public void trustAllCertificates() {
-            try {
-                TrustManager[] trustAllCerts = new TrustManager[]{
-                        new X509TrustManager() {
-                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                                java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                                return myTrustedAnchors;
-                            }
-
-                            @Override
-                            public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                            }
-
-                            @Override
-                            public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                            }
-                        }
-                };
-
-                SSLContext sc = SSLContext.getInstance("SSL");
-                sc.init(null, trustAllCerts, new SecureRandom());
-                HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-                HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String arg0, SSLSession arg1) {
-                        return true;
-                    }
-                });
-            } catch (Exception e) {
-            }
-        }
     }
 }

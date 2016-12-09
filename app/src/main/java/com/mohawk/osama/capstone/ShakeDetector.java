@@ -8,9 +8,8 @@ import android.hardware.SensorManager;
 /**
  * Created by osamamalik on 2016-12-06.
  */
-
 public class ShakeDetector implements SensorEventListener {
-    private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
+    private static final float SHAKE_THRESHOLD_GRAVITY = 4.2F;
     private static final int SHAKE_SLOP_TIME_MS = 500;
     private static final int SHAKE_COUNT_RESET_TIME_MS = 3000;
 
@@ -18,11 +17,24 @@ public class ShakeDetector implements SensorEventListener {
     private long mShakeTimestamp;
     private int mShakeCount;
 
+    /**
+     * Sets on shake listener.
+     *
+     * @param listener the listener
+     */
     public void setOnShakeListener(OnShakeListener listener) {
         this.mListener = listener;
     }
 
+    /**
+     * The interface On shake listener.
+     */
     public interface OnShakeListener {
+        /**
+         * On shake.
+         *
+         * @param count the count
+         */
         public void onShake(int count);
     }
 

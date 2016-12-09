@@ -27,6 +27,9 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * The type Shake recommendation activity.
+ */
 public class ShakeRecommendationActivity extends AppCompatActivity {
     private String userID;
     private int comicID;
@@ -68,6 +71,9 @@ public class ShakeRecommendationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -190,6 +196,12 @@ public class ShakeRecommendationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets data.
+     *
+     * @param jsonResult the json result
+     * @return the data
+     */
     public VolumeDataObject getData(String jsonResult) {
         VolumeDataObject obj = new VolumeDataObject();
         try {
@@ -210,6 +222,13 @@ public class ShakeRecommendationActivity extends AppCompatActivity {
         return obj;
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -236,7 +255,16 @@ public class ShakeRecommendationActivity extends AppCompatActivity {
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }

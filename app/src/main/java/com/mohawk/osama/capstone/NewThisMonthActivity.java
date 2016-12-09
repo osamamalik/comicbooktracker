@@ -1,6 +1,9 @@
 package com.mohawk.osama.capstone;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,6 +50,11 @@ public class NewThisMonthActivity extends AppCompatActivity implements Navigatio
     private String jsonResult;
     private String userID;
 
+    // The following are used for the shake detection
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+
     public ArrayList databaseResults = new ArrayList<NewThisMonthDataObject>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +86,29 @@ public class NewThisMonthActivity extends AppCompatActivity implements Navigatio
         mAdapter = new NewThisMonthRecyclerViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
 
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
 
+            @Override
+            public void onShake(int count) {
+				/*
+				 * The following method, "handleShakeEvent(count):" is a stub //
+				 * method you would use to setup whatever you want done once the
+				 * device has been shook.
+				 */
+                handleShakeEvent();
+            }
+        });
 
+    }
+
+    private void handleShakeEvent() {
+        Intent intent = new Intent(NewThisMonthActivity.this, ShakeRecommendationActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -92,6 +121,14 @@ public class NewThisMonthActivity extends AppCompatActivity implements Navigatio
                 Log.i(LOG_TAG, " Clicked on Item " + position);
             }
         });
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
     @Override
@@ -102,28 +139,6 @@ public class NewThisMonthActivity extends AppCompatActivity implements Navigatio
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

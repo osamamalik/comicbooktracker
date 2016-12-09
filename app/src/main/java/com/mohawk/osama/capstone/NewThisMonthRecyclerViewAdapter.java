@@ -25,17 +25,46 @@ public class NewThisMonthRecyclerViewAdapter extends RecyclerView.Adapter<NewThi
     private ArrayList<NewThisMonthDataObject> mDataset;
     private static MyClickListener myClickListener;
 
+    /**
+     * The type Data object holder.
+     */
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
+        /**
+         * The Issue number.
+         */
         TextView issueNumber;
+        /**
+         * The Issue name.
+         */
         TextView issueName;
+        /**
+         * The Issue date.
+         */
         TextView issueDate;
+        /**
+         * The Cover image.
+         */
         ImageView coverImage;
+        /**
+         * The Issue id.
+         */
         TextView issueID;
+        /**
+         * The Issue description.
+         */
         TextView issueDescription;
+        /**
+         * The Issue image url.
+         */
         TextView issueImageURL;
 
+        /**
+         * Instantiates a new Data object holder.
+         *
+         * @param itemView the item view
+         */
         public DataObjectHolder(View itemView) {
             super(itemView);
             issueNumber = (TextView) itemView.findViewById(R.id.newIssueNumberTextView);
@@ -66,10 +95,20 @@ public class NewThisMonthRecyclerViewAdapter extends RecyclerView.Adapter<NewThi
         }
     }
 
+    /**
+     * Sets on item click listener.
+     *
+     * @param myClickListener the my click listener
+     */
     public void setOnItemClickListener(MyClickListener myClickListener) {
         this.myClickListener = myClickListener;
     }
 
+    /**
+     * Instantiates a new New this month recycler view adapter.
+     *
+     * @param myDataset the my dataset
+     */
     public NewThisMonthRecyclerViewAdapter(ArrayList<NewThisMonthDataObject> myDataset) {
         mDataset = myDataset;
     }
@@ -95,11 +134,22 @@ public class NewThisMonthRecyclerViewAdapter extends RecyclerView.Adapter<NewThi
         holder.issueImageURL.setText(mDataset.get(position).getImageURL());
     }
 
+    /**
+     * Add item.
+     *
+     * @param dataObj the data obj
+     * @param index   the index
+     */
     public void addItem(NewThisMonthDataObject dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }
 
+    /**
+     * Delete item.
+     *
+     * @param index the index
+     */
     public void deleteItem(int index) {
         mDataset.remove(index);
         notifyItemRemoved(index);
@@ -110,12 +160,30 @@ public class NewThisMonthRecyclerViewAdapter extends RecyclerView.Adapter<NewThi
         return mDataset.size();
     }
 
+    /**
+     * The interface My click listener.
+     */
     public interface MyClickListener {
+        /**
+         * On item click.
+         *
+         * @param position the position
+         * @param v        the v
+         */
         public void onItemClick(int position, View v);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }

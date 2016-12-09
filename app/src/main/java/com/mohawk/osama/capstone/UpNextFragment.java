@@ -52,9 +52,18 @@ public class UpNextFragment extends Fragment {
     private String userID;
     private boolean markRead = false;
 
+    /**
+     * Instantiates a new Up next fragment.
+     */
     public UpNextFragment() {
     }
 
+    /**
+     * New instance up next fragment.
+     *
+     * @param cID the comic id
+     * @return the up next fragment
+     */
     public static UpNextFragment newInstance(String cID) {
         comicID = cID;
         UpNextFragment fragment = new UpNextFragment();
@@ -85,6 +94,9 @@ public class UpNextFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -185,6 +197,13 @@ public class UpNextFragment extends Fragment {
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -210,6 +229,12 @@ public class UpNextFragment extends Fragment {
         return result.toString();
     }
 
+    /**
+     * Gets data.
+     *
+     * @param jsonResult the json result
+     * @return the data
+     */
     public IssueDataObject getData(String jsonResult) {
         IssueDataObject obj = new IssueDataObject();
         try {
@@ -230,7 +255,16 @@ public class UpNextFragment extends Fragment {
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }

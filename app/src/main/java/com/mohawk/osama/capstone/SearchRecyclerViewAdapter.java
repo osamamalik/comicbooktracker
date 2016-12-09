@@ -38,25 +38,57 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * The type Search recycler view adapter.
+ */
 public class SearchRecyclerViewAdapter extends RecyclerView
         .Adapter<SearchRecyclerViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "SearchRecyclerViewAdapter";
     private ArrayList<SearchDataObject> mDataset;
     private static MyClickListener myClickListener;
+    /**
+     * The Added comic id.
+     */
     String addedComicID;
     private String userID;
 
+    /**
+     * The type Data object holder.
+     */
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
+        /**
+         * The Comic name.
+         */
         TextView comicName;
+        /**
+         * The Year.
+         */
         TextView year;
+        /**
+         * The Publisher.
+         */
         TextView publisher;
+        /**
+         * The Cover image.
+         */
         ImageView coverImage;
+        /**
+         * The Comic id.
+         */
         TextView comicID;
+        /**
+         * The Add button.
+         */
         ImageButton addButton;
 
+        /**
+         * Instantiates a new Data object holder.
+         *
+         * @param itemView the item view
+         */
         public DataObjectHolder(View itemView) {
             super(itemView);
             comicName = (TextView) itemView.findViewById(R.id.searchComicNameTextView);
@@ -80,10 +112,20 @@ public class SearchRecyclerViewAdapter extends RecyclerView
 
     }
 
+    /**
+     * Sets on item click listener.
+     *
+     * @param myClickListener the my click listener
+     */
     public void setOnItemClickListener(MyClickListener myClickListener) {
         this.myClickListener = myClickListener;
     }
 
+    /**
+     * Instantiates a new Search recycler view adapter.
+     *
+     * @param myDataset the my dataset
+     */
     public SearchRecyclerViewAdapter(ArrayList<SearchDataObject> myDataset) {
         mDataset = myDataset;
 
@@ -114,18 +156,28 @@ public class SearchRecyclerViewAdapter extends RecyclerView
             public void onClick(View v) {
                 SearchDataObject sDO = mDataset.get(position);
                 addedComicID = sDO.getComicID();
-                trustAllCertificates();
                 new SendPostRequest().execute();
                 holder.addButton.setVisibility(View.GONE);
             }
         });
     }
 
+    /**
+     * Add item.
+     *
+     * @param dataObj the data obj
+     * @param index   the index
+     */
     public void addItem(SearchDataObject dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }
 
+    /**
+     * Delete item.
+     *
+     * @param index the index
+     */
     public void deleteItem(int index) {
         mDataset.remove(index);
         notifyItemRemoved(index);
@@ -136,12 +188,30 @@ public class SearchRecyclerViewAdapter extends RecyclerView
         return mDataset.size();
     }
 
+    /**
+     * The interface My click listener.
+     */
     public interface MyClickListener {
+        /**
+         * On item click.
+         *
+         * @param position the position
+         * @param v        the v
+         */
         public void onItemClick(int position, View v);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        /**
+         * The Bm image.
+         */
         ImageView bmImage;
+
+        /**
+         * Instantiates a new Download image task.
+         *
+         * @param bmImage the bm image
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
@@ -164,6 +234,9 @@ public class SearchRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * The type Send post request.
+     */
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -229,6 +302,12 @@ public class SearchRecyclerViewAdapter extends RecyclerView
         }
     }
 
+    /**
+     * Gets data.
+     *
+     * @param jsonResult the json result
+     * @return the data
+     */
     public int getData(String jsonResult) {
         int inCollection = 0;
         try {
@@ -241,6 +320,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView
         return inCollection;
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -264,37 +350,5 @@ public class SearchRecyclerViewAdapter extends RecyclerView
 
         }
         return result.toString();
-    }
-
-    public void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            java.security.cert.X509Certificate[] myTrustedAnchors = new java.security.cert.X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-        }
     }
 }

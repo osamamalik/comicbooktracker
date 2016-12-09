@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * The type Add activity.
+ */
 public class AddActivity extends AppCompatActivity {
 
     private String title;

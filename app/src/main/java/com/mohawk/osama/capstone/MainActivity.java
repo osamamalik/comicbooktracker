@@ -49,6 +49,9 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
 
+    /**
+     * The Database results.
+     */
     public ArrayList databaseResults = new ArrayList<MainDataObject>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,20 +120,19 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onShake(int count) {
-				/*
-				 * The following method, "handleShakeEvent(count):" is a stub //
-				 * method you would use to setup whatever you want done once the
-				 * device has been shook.
-				 */
                 handleShakeEvent();
             }
         });
     }
 
+    /**
+     * Shake event recommends a random comic book based on the user's collection
+     */
     private void handleShakeEvent() {
         Intent intent = new Intent(MainActivity.this, ShakeRecommendationActivity.class);
         startActivity(intent);
     }
+
 
     @Override
     protected void onResume() {
@@ -204,6 +209,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     *
+     * @return List of comics in user's collection
+     */
     private ArrayList<MainDataObject> getDataSet() {
         ArrayList results = new ArrayList<MainDataObject>();
         if (databaseResults.size() == 0) {
@@ -225,6 +234,9 @@ public class MainActivity extends AppCompatActivity
         return results;
     }
 
+    /**
+     * Gets current user's collection from database
+     */
     private class JsonReadTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -272,11 +284,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Access web service.
+     */
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
         task.execute(new String[] { "https://csunix.mohawkcollege.ca/~000307480/capstone/apex.php" });
     }
 
+    /**
+     * Gets data.
+     *
+     * @return the data
+     */
     public ArrayList<MainDataObject> getData() {
         databaseResults.clear();
         try {

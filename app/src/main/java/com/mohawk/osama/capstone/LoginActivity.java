@@ -309,12 +309,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     private interface ProfileQuery {
+        /**
+         * The Projection.
+         */
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
         };
 
+        /**
+         * The constant ADDRESS.
+         */
         int ADDRESS = 0;
+        /**
+         * The constant IS_PRIMARY.
+         */
         int IS_PRIMARY = 1;
     }
 
@@ -327,6 +336,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
 
+        /**
+         * Instantiates a new User login task.
+         *
+         * @param email    the email
+         * @param password the password
+         */
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
@@ -425,6 +440,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    /**
+     * Gets post data string.
+     *
+     * @param params the params
+     * @return the post data string
+     * @throws Exception the exception
+     */
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -450,11 +472,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return result.toString();
     }
 
+    /**
+     * The type User register task.
+     */
     public class UserRegisterTask extends AsyncTask<String, Void, String> {
 
         private final String mEmail;
         private final String mPassword;
 
+        /**
+         * Instantiates a new User register task.
+         *
+         * @param email    the email
+         * @param password the password
+         */
         UserRegisterTask(String email, String password) {
             mEmail = email;
             mPassword = password;
