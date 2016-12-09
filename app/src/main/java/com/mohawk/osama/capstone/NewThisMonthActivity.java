@@ -164,13 +164,7 @@ public class NewThisMonthActivity extends AppCompatActivity implements Navigatio
 
     private ArrayList<NewThisMonthDataObject> getDataSet() {
         ArrayList results = new ArrayList<NewThisMonthDataObject>();
-        if (databaseResults.size() == 0) {
-            for (int index = 0; index < 0; index++) {
-                NewThisMonthDataObject obj = new NewThisMonthDataObject("Loading Issues...", "", "", "", "", "", "");
-                results.add(index, obj);
-            }
-        }
-        else {
+        if (databaseResults.size() != 0) {
             results.clear();
             for (int i = 0; i < databaseResults.size(); i++) {
                 NewThisMonthDataObject r = (NewThisMonthDataObject) databaseResults.get(i);

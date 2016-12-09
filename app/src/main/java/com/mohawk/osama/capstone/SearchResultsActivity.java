@@ -78,15 +78,7 @@ public class SearchResultsActivity extends AppCompatActivity {
 
     private ArrayList<SearchDataObject> getDataSet() {
         ArrayList results = new ArrayList<SearchDataObject>();
-        if (databaseResults.size() == 0) {
-            for (int index = 0; index < 20; index++) {
-                SearchDataObject obj = new SearchDataObject("Comic Name " + index,
-                        "Year " + index, "Publisher " + index, "Issue Cover " + index,
-                        "ComicID " + index);
-                results.add(index, obj);
-            }
-        }
-        else {
+        if (databaseResults.size() != 0) {
             results.clear();
             for (int i = 0; i < databaseResults.size(); i++) {
                 SearchDataObject r = (SearchDataObject) databaseResults.get(i);
@@ -164,9 +156,14 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            getData(result);
-            mAdapter = new SearchRecyclerViewAdapter(getDataSet());
-            mRecyclerView.setAdapter(mAdapter);
+            if (!result.equals("null")) {
+                getData(result);
+                mAdapter = new SearchRecyclerViewAdapter(getDataSet());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "There are no results for this search.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

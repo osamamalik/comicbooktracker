@@ -215,14 +215,7 @@ public class MainActivity extends AppCompatActivity
      */
     private ArrayList<MainDataObject> getDataSet() {
         ArrayList results = new ArrayList<MainDataObject>();
-        if (databaseResults.size() == 0) {
-            for (int index = 0; index < 0; index++) {
-                MainDataObject obj = new MainDataObject("Comic Name " + index,
-                        "Issue Name " + index, "Release Date " + index, "Issue Cover " + index, "Issue ID " + index, "");
-                results.add(index, obj);
-            }
-        }
-        else {
+        if (databaseResults.size() != 0) {
             results.clear();
             for (int i = 0; i < databaseResults.size(); i++) {
                 MainDataObject r = (MainDataObject) databaseResults.get(i);

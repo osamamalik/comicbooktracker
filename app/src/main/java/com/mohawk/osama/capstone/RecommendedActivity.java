@@ -134,15 +134,7 @@ public class RecommendedActivity extends AppCompatActivity implements Navigation
 
     private ArrayList<SearchDataObject> getDataSet() {
         ArrayList results = new ArrayList<SearchDataObject>();
-        if (databaseResults.size() == 0) {
-            for (int index = 0; index < 1; index++) {
-                SearchDataObject obj = new SearchDataObject("Comic Name " + index,
-                        "Year " + index, "Publisher " + index, "Issue Cover " + index,
-                        "ComicID " + index);
-                results.add(index, obj);
-            }
-        }
-        else {
+        if (databaseResults.size() != 0) {
             results.clear();
             for (int i = 0; i < databaseResults.size(); i++) {
                 SearchDataObject r = (SearchDataObject) databaseResults.get(i);

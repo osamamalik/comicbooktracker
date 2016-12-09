@@ -101,13 +101,7 @@ public class IssuesFragment extends Fragment {
 
     private ArrayList<IssuesDataObject> getDataSet() {
         ArrayList results = new ArrayList<IssuesDataObject>();
-        if (databaseResults.size() == 0) {
-            for (int index = 0; index < 1; index++) {
-                IssuesDataObject obj = new IssuesDataObject("Loading Issues...", "", "", "", "", "", "", "", 0);
-                results.add(index, obj);
-            }
-        }
-        else {
+        if (databaseResults.size() != 0) {
             results.clear();
             for (int i = 0; i < databaseResults.size(); i++) {
                 IssuesDataObject r = (IssuesDataObject) databaseResults.get(i);
